@@ -12,5 +12,6 @@ npx hardhat node
 npx hardhat run scripts/deploy.js
 ```
 Gvote deployed to: 0x1Efa25bd75d3e3133B8E0CA985345B934922E13c
+
 VotingSystem deployed to: 0xE54793A58bDFFF6BdAeb715c09238ad047d95B64
 Deployment completed!
