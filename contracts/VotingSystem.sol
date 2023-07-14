@@ -1,14 +1,18 @@
- 
+
 // SPDX-License-Identifier: MIT 
 
 pragma solidity ^0.8.0;
+
 import "./Gvote.sol";
+
 contract VotingSystem {
+    // State variables
     address public admin;
     uint256 public candidateCount;
     uint256 public voterCount;
     bool public start;
     bool public end;
+    uint256 public ballotCount;
 
     struct Candidate {
         string name;
@@ -16,15 +20,27 @@ contract VotingSystem {
         uint256 voteCount;
     }
 
+    struct Ballot {
+        uint256 id;
+        string name;
+        uint256[] candidateIds;
+        uint256 startTime;
+        uint256 endTime;
+    }
+
     mapping(uint256 => Candidate) public candidates;
     mapping(address => bool) public hasVoted;
     mapping(address => bool) public isRegistered;
     mapping(uint256 => mapping(address => bool)) public votedForCandidate;
     address[] private voterAddresses;
+    mapping(uint256 => Ballot) public ballots;
 
+    // Events
     event VoteCast(address indexed voter, uint256 candidateIndex);
     event SessionCreated(uint256 sessionId, address owner);
+    event BallotCreated(uint256 ballotId, string name);
 
+    // Modifiers
     modifier onlyAdmin() {
         require(msg.sender == admin, "Only the admin can access this function.");
         _;
@@ -41,6 +57,7 @@ contract VotingSystem {
         voterCount = 0;
         start = false;
         end = false;
+        ballotCount = 0;
     }
 
     function addCandidate(string memory _name, string memory _party) public onlyAdmin {
@@ -126,5 +143,21 @@ contract VotingSystem {
         Candidate memory winner = candidates[winningCandidateIndex];
         return (winner.name, winner.party, winner.voteCount);
     }
-}
 
+    function createBallot(
+        string memory _name,
+        uint256[] memory _candidateIds,
+        uint256 _startTime,
+        uint256 _endTime
+    ) public onlyAdmin {
+        require(!start, "Election has already started.");
+        require(!end, "Election has already ended.");
+        require(_candidateIds.length > 0, "At least one candidate must be included.");
+        require(_startTime < _endTime, "Invalid ballot period.");
+
+        ballots[ballotCount] = Ballot(ballotCount, _name, _candidateIds, _startTime, _endTime);
+        ballotCount++;
+
+        emit BallotCreated(ballotCount - 1, _name);
+    }
+}
