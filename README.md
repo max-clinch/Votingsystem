@@ -40,8 +40,12 @@ According to above diagram, voter needs to enter his/her credentials in order to
 Since current voting systems don’t suffice to security needs of modern generation, there is a need to build a system that leverages security, convenience, and trust involved in voting process. Hence voting systems make use of Blockchain technology to add an extra layer of security and encourage people to vote from any time, anywhere without any hassle and makes voting process more cost-effective and time-saving.
 
 # CONTRIBUTOR
-Suleman Ismaila
-Oluwafemi Oluwatoba
+
+• Suleman Ismaila
+•	Oluwafemi Oluwatoba
+•
+
+
 
 Try running some of the following tasks:
 
