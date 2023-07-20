@@ -43,7 +43,8 @@ Since current voting systems don’t suffice to security needs of modern generat
 
 • Suleman Ismaila
 •	Oluwafemi Oluwatoba
-•
+• Kolawole Ayoola
+
 
 
 
